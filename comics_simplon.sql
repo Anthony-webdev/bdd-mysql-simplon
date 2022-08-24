@@ -164,7 +164,6 @@ ALTER TABLE `comics`
   ADD KEY `id_serie` (`id_serie`),
   ADD KEY `id_editeur` (`id_editeur`),
   ADD KEY `id_epoque` (`id_epoque`),
-  ADD KEY `id_recompense` (`id_recompense`),
   ADD KEY `id_univers` (`id_univers`);
 
 --
@@ -197,7 +196,8 @@ ALTER TABLE `possession`
 -- Index pour la table `recompenses`
 --
 ALTER TABLE `recompenses`
-  ADD PRIMARY KEY (`id_recompense`);
+  ADD PRIMARY KEY (`id_recompense`),
+  ADD KEY `id_comics` (`id_comics`);
 
 --
 -- Index pour la table `series`
@@ -274,13 +274,20 @@ ALTER TABLE `univers`
 --
 
 --
+-- Contraintes pour la table `recompenses`
+--
+ALTER TABLE `recompenses`
+  ADD CONSTRAINT `recompenses_ibfk_1` FOREIGN KEY (`id_comics`) REFERENCES `comics` (`id_comics`);
+
+--
+
+--
 -- Contraintes pour la table `comics`
 --
 ALTER TABLE `comics`
   ADD CONSTRAINT `comics_ibfk_1` FOREIGN KEY (`id_collection`) REFERENCES `collections` (`id_collection`),
   ADD CONSTRAINT `comics_ibfk_2` FOREIGN KEY (`id_serie`) REFERENCES `series` (`id_serie`),
   ADD CONSTRAINT `comics_ibfk_3` FOREIGN KEY (`id_editeur`) REFERENCES `editeurs` (`id_editeur`),
-  ADD CONSTRAINT `comics_ibfk_4` FOREIGN KEY (`id_recompense`) REFERENCES `recompenses` (`id_recompense`),
   ADD CONSTRAINT `comics_ibfk_5` FOREIGN KEY (`id_univers`) REFERENCES `univers` (`id_univers`);
 
 --
